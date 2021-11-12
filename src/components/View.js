@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import articleService from '../services/articleServices';
 
 import Article from './Article';
 import EditForm from './EditForm';
@@ -10,6 +11,7 @@ const View = (props) => {
     const [editId, setEditId] = useState();
 
     const handleDelete = (id) => {
+        
     }
 
     const handleEdit = (article) => {
@@ -23,6 +25,14 @@ const View = (props) => {
     const handleEditCancel = ()=>{
         setEditing(false);
     }
+
+    useEffect(() => {
+        const getArticles = async () => {
+          const articleResponse = await articleService();
+          setArticles(articleResponse.data);
+        };
+        getArticles();
+      }, []);
 
     return(<ComponentContainer>
         <HeaderContainer>View Articles</HeaderContainer>
@@ -41,7 +51,8 @@ const View = (props) => {
                 editing && <EditForm editId={editId} handleEdit={handleEdit} handleEditCancel={handleEditCancel}/>
             }
         </ContentContainer>
-    </ComponentContainer>);
+    </ComponentContainer>
+    );
 }
 
 export default View;
