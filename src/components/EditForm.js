@@ -39,8 +39,10 @@ const EditForm = (props)=> {
         .then(resp => {
             setArticle(resp.data)
         })
-    }
-    )
+        .catch(err => {
+            console,log(err)
+        })
+    }, [])
 
     return(<FormContainer onSubmit={handleSubmit}>
         <h3>Edit Article</h3>
